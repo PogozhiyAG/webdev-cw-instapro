@@ -38,9 +38,7 @@ export const renederPost = post => {
         </li>`);
 
     element.querySelector(".post-header").addEventListener("click", () => {
-        goToPage(USER_POSTS_PAGE, {
-            userId: post.user.id,
-        });
+        goToPage(USER_POSTS_PAGE, post.user);
     });
 
     return element;
