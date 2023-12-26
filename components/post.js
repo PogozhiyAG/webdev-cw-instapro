@@ -7,6 +7,10 @@ export const renederPost = post => {
         post.isLiked ? "like-active.svg" : "like-not-active.svg"
     }`;
 
+    /**
+     * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
+     * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
+     */
     const element = fromHTML(`
         <li class="post">
             <div class="post-header" data-user-id="${post.user.id}">

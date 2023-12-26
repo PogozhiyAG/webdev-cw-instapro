@@ -51,19 +51,8 @@ export const goToPage = (newPage, data) => {
         }
 
         if (newPage === POSTS_PAGE) {
-            page = LOADING_PAGE;
+            page = POSTS_PAGE;
             renderApp();
-
-            return getPosts({ token: getToken() })
-                .then(newPosts => {
-                    page = POSTS_PAGE;
-                    posts = newPosts;
-                    renderApp();
-                })
-                .catch(error => {
-                    console.error(error);
-                    //goToPage(POSTS_PAGE);
-                });
         }
 
         if (newPage === USER_POSTS_PAGE) {
@@ -85,13 +74,13 @@ export const goToPage = (newPage, data) => {
 
 const renderApp = () => {
     const appEl = document.getElementById("app");
-    if (page === LOADING_PAGE) {
-        return renderLoadingPageComponent({
-            appEl,
-            user,
-            goToPage,
-        });
-    }
+    // if (page === LOADING_PAGE) {
+    //     return renderLoadingPageComponent({
+    //         appEl,
+    //         user,
+    //         goToPage,
+    //     });
+    // }
 
     if (page === AUTH_PAGE) {
         return renderAuthPageComponent({
