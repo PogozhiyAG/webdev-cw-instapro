@@ -52,7 +52,7 @@ export const goToPage = (newPage, data) => {
 
         if (newPage === POSTS_PAGE) {
             page = POSTS_PAGE;
-            renderApp();
+            return renderApp();
         }
 
         if (newPage === USER_POSTS_PAGE) {
