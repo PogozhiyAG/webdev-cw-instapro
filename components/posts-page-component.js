@@ -1,10 +1,8 @@
-//import { posts } from "../index.js";
 import { renderPostList } from "./post-list.js";
-import { renderHeader } from "./header.js";
-import { fromHTML } from "./render.js";
 import { getPosts } from "../api.js";
 import { user } from "../index.js";
-import { renderLoading } from "./loading.js";
+import { loadingContainer } from "./loading-container.js";
+import { renderPage } from "./page.js";
 
 //TODO: временно
 const getToken = () => {
@@ -13,22 +11,11 @@ const getToken = () => {
 };
 
 export function renderPostsPageComponent() {
-    const element = fromHTML(`
-        <div class="page-container">
-        </div>`);
+    const loadingPosts = loadingContainer(
+        getPosts({ token: getToken() }).then(posts => renderPostList(posts))
+    );
 
-    const loadingElement = renderLoading();
-
-    element.append(renderHeader(), loadingElement);
-
-    getPosts({ token: getToken() })
-        .then(posts =>
-            element.replaceChild(renderPostList(posts), loadingElement)
-        )
-        .catch(error => {
-            console.error(error);
-            element.removeChild(loadingElement);
-        });
+    const element = renderPage(loadingPosts);
 
     return element;
 }
