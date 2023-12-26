@@ -1,8 +1,8 @@
 import { renderPostList } from "./post-list.js";
 import { getPosts } from "../api.js";
-import { user } from "../index.js";
 import { loadingContainer } from "./loading-container.js";
 import { renderPage } from "./page.js";
+import { user } from "../auth.js";
 
 //TODO: временно
 const getToken = () => {

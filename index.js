@@ -16,20 +16,20 @@ import {
     saveUserToLocalStorage,
 } from "./helpers.js";
 
-export let user = getUserFromLocalStorage();
+//export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
-    const token = user ? `Bearer ${user.token}` : undefined;
-    return token;
-};
+// const getToken = () => {
+//     const token = user ? `Bearer ${user.token}` : undefined;
+//     return token;
+// };
 
-export const logout = () => {
-    user = null;
-    removeUserFromLocalStorage();
-    goToPage(POSTS_PAGE);
-};
+// export const logout = () => {
+//     user = null;
+//     removeUserFromLocalStorage();
+//     goToPage(POSTS_PAGE);
+// };
 
 /**
  * Включает страницу приложения
@@ -72,7 +72,7 @@ export const goToPage = (newPage, data) => {
     throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
     const appEl = document.getElementById("app");
     // if (page === LOADING_PAGE) {
     //     return renderLoadingPageComponent({
@@ -85,13 +85,6 @@ const renderApp = () => {
     if (page === AUTH_PAGE) {
         return renderAuthPageComponent({
             appEl,
-            setUser: newUser => {
-                user = newUser;
-                saveUserToLocalStorage(user);
-                goToPage(POSTS_PAGE);
-            },
-            user,
-            goToPage,
         });
     }
 
