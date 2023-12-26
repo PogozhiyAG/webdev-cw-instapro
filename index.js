@@ -16,6 +16,7 @@ import {
     saveUserToLocalStorage,
 } from "./helpers.js";
 import { renderUserPageComponent } from "./components/user-page.js";
+import { user } from "./auth.js";
 
 //export let user = getUserFromLocalStorage();
 export let page = null;
