@@ -20,7 +20,7 @@ import { user } from "./auth.js";
 
 //export let user = getUserFromLocalStorage();
 export let page = null;
-export let posts = [];
+//export let posts = [];
 
 // const getToken = () => {
 //     const token = user ? `Bearer ${user.token}` : undefined;
@@ -33,83 +33,80 @@ export let posts = [];
 //     goToPage(POSTS_PAGE);
 // };
 
+let renderDelegate;
 /**
  * Включает страницу приложения
  */
-export const goToPage = (newPage, data) => {
+export const goToPage = (page, data) => {
     const appEl = document.getElementById("app");
     if (
-        [
-            POSTS_PAGE,
-            AUTH_PAGE,
-            ADD_POSTS_PAGE,
-            USER_POSTS_PAGE,
-            LOADING_PAGE,
-        ].includes(newPage)
+        [POSTS_PAGE, AUTH_PAGE, ADD_POSTS_PAGE, USER_POSTS_PAGE].includes(page)
     ) {
-        if (newPage === ADD_POSTS_PAGE) {
-            // Если пользователь не авторизован, то отправляем его на авторизацию перед добавлением поста
-            page = user ? ADD_POSTS_PAGE : AUTH_PAGE;
-            return renderApp();
+        if (page === AUTH_PAGE) {
+            renderDelegate = () => renderAuthPageComponent({ appEl });
+        } else if (page === ADD_POSTS_PAGE) {
+            renderDelegate = () =>
+                renderAddPostPageComponent({
+                    appEl,
+                    onAddPostClick({ description, imageUrl }) {
+                        // TODO: реализовать добавление поста в API
+                        console.log("Добавляю пост...", {
+                            description,
+                            imageUrl,
+                        });
+                        goToPage(POSTS_PAGE);
+                    },
+                });
+        } else if (page === POSTS_PAGE) {
+            renderDelegate = () =>
+                appEl.replaceChildren(renderPostsPageComponent());
+        } else if (page === USER_POSTS_PAGE) {
+            renderDelegate = () =>
+                appEl.replaceChildren(renderUserPageComponent(data));
         }
 
-        if (newPage === POSTS_PAGE) {
-            page = POSTS_PAGE;
-            return renderApp();
-        }
-
-        if (newPage === USER_POSTS_PAGE) {
-            // TODO: реализовать получение постов юзера из API
-            // console.log("Открываю страницу пользователя: ", data.userId);
-            // page = USER_POSTS_PAGE;
-            // posts = [];
-            // return renderApp();
-            return appEl.replaceChildren(renderUserPageComponent(data));
-        }
-
-        page = newPage;
-        renderApp();
-
-        return;
+        renderDelegate();
+    } else {
+        throw new Error("страницы не существует");
     }
-
-    throw new Error("страницы не существует");
 };
 
-export const renderApp = () => {
-    const appEl = document.getElementById("app");
-    // if (page === LOADING_PAGE) {
-    //     return renderLoadingPageComponent({
-    //         appEl,
-    //         user,
-    //         goToPage,
-    //     });
-    // }
+export const renderApp = () => renderDelegate();
 
-    if (page === AUTH_PAGE) {
-        return renderAuthPageComponent({
-            appEl,
-        });
-    }
+// export const renderApp = () => {
+//     const appEl = document.getElementById("app");
+//     // if (page === LOADING_PAGE) {
+//     //     return renderLoadingPageComponent({
+//     //         appEl,
+//     //         user,
+//     //         goToPage,
+//     //     });
+//     // }
 
-    if (page === ADD_POSTS_PAGE) {
-        return renderAddPostPageComponent({
-            appEl,
-            onAddPostClick({ description, imageUrl }) {
-                // TODO: реализовать добавление поста в API
-                console.log("Добавляю пост...", { description, imageUrl });
-                goToPage(POSTS_PAGE);
-            },
-        });
-    }
+//     if (page === AUTH_PAGE) {
+//         return renderAuthPageComponent({
+//             appEl,
+//         });
+//     }
 
-    if (page === POSTS_PAGE) {
-        return appEl.replaceChildren(renderPostsPageComponent());
-    }
+//     if (page === ADD_POSTS_PAGE) {
+//         return renderAddPostPageComponent({
+//             appEl,
+//             onAddPostClick({ description, imageUrl }) {
+//                 // TODO: реализовать добавление поста в API
+//                 console.log("Добавляю пост...", { description, imageUrl });
+//                 goToPage(POSTS_PAGE);
+//             },
+//         });
+//     }
 
-    if (page === USER_POSTS_PAGE) {
-        return appEl.replaceChildren(renderUserPageComponent());
-    }
-};
+//     if (page === POSTS_PAGE) {
+//         return appEl.replaceChildren(renderPostsPageComponent());
+//     }
+
+//     if (page === USER_POSTS_PAGE) {
+//         return appEl.replaceChildren(renderUserPageComponent());
+//     }
+// };
 
 goToPage(POSTS_PAGE);
