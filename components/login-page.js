@@ -13,8 +13,8 @@ export const renderLoginPage = () => {
                     Вход в Instapro
                 </h3>
                 <div class="form-inputs">
-                    <input type="text" id="login-input" class="input" placeholder="Логин" />
-                    <input type="password" id="password-input" class="input" placeholder="Пароль" />
+                    <input type="text" class="login-input input" placeholder="Логин" />
+                    <input type="password" class="password-input input" placeholder="Пароль" />
                     
                     <div class="form-error"></div>
                     
@@ -37,9 +37,9 @@ export const renderLoginPage = () => {
 
         form.querySelector(".login-button").addEventListener("click", () => {
             setError("");
-            
-            const login = document.getElementById("login-input").value;
-            const password = document.getElementById("password-input").value;
+
+            const login = form.querySelector(".login-input").value;
+            const password = form.querySelector(".password-input").value;
 
             if (!login) {
                 alert("Введите логин");
