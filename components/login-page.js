@@ -60,7 +60,7 @@ export const renderLoginPage = () => {
                 goToPage(POSTS_PAGE);
             })
             .catch(error => {
-                console.warn(error);
+                console.error(error);
                 setError(error.message);
             });
         });
