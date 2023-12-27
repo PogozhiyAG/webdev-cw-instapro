@@ -3,21 +3,25 @@ import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
     ADD_POSTS_PAGE,
     AUTH_PAGE,
+    LOGIN_PAGE,
     POSTS_PAGE,
     USER_POSTS_PAGE,
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderUserPageComponent } from "./components/user-page.js";
+import { renderLoginPage } from "./components/login-page.js";
 
 const appEl = document.getElementById("app");
 let renderDelegate;
 
 export const goToPage = (page, data) => {
     if (
-        [POSTS_PAGE, AUTH_PAGE, ADD_POSTS_PAGE, USER_POSTS_PAGE].includes(page)
+        [POSTS_PAGE, LOGIN_PAGE, ADD_POSTS_PAGE, USER_POSTS_PAGE].includes(page)
     ) {
         if (page === AUTH_PAGE) {
             // renderDelegate = () => renderAuthPageComponent({ appEl });
+        } else if (page === LOGIN_PAGE) {
+            renderDelegate = renderLoginPage();
         } else if (page === ADD_POSTS_PAGE) {
             // renderDelegate = () =>
             //     renderAddPostPageComponent({

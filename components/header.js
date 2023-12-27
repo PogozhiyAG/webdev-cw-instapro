@@ -1,6 +1,6 @@
 import { setUser, user } from "../auth.js";
 import { goToPage, renderApp } from "../index.js";
-import { ADD_POSTS_PAGE, AUTH_PAGE, POSTS_PAGE } from "../routes.js";
+import { ADD_POSTS_PAGE, AUTH_PAGE, LOGIN_PAGE, POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./render.js";
 
 export const renderHeader = () => {
@@ -30,7 +30,7 @@ export const renderHeader = () => {
             if (user) {
                 goToPage(ADD_POSTS_PAGE);
             } else {
-                goToPage(AUTH_PAGE);
+                goToPage(LOGIN_PAGE);
             }
         });
 
