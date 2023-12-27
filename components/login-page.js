@@ -37,6 +37,7 @@ export const renderLoginPage = () => {
 
         form.querySelector(".login-button").addEventListener("click", () => {
             setError("");
+            
             const login = document.getElementById("login-input").value;
             const password = document.getElementById("password-input").value;
 
