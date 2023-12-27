@@ -54,14 +54,14 @@ export const renderLoginPage = () => {
                 login: login,
                 password: password,
             })
-                .then(userData => {
-                    setUser(userData.user);
-                    goToPage(POSTS_PAGE);
-                })
-                .catch(error => {
-                    console.warn(error);
-                    setError(error.message);
-                });
+            .then(userData => {
+                setUser(userData.user);
+                goToPage(POSTS_PAGE);
+            })
+            .catch(error => {
+                console.warn(error);
+                setError(error.message);
+            });
         });
 
         return page;
