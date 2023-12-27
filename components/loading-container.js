@@ -11,6 +11,7 @@ export const loadingContainer = contentPromise => {
             </div>
         </div>`);
 
+    //TODO: reaction on a error
     contentPromise.then(content => {
         container.replaceChildren(content);
     });
