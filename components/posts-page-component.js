@@ -1,9 +1,8 @@
 import { renderPostList } from "./post-list.js";
 import { getPosts } from "../api.js";
-import { loadingContainer } from "./loading-container.js";
 import { renderPage } from "./page.js";
 import { renderApp } from "../index.js";
-import { fromHTML } from "./render.js";
+import { renderLoading } from "./render-loading.js";
 
 export function renderPostsPageComponent() {
     let isLoading = true;
@@ -23,14 +22,3 @@ export function renderPostsPageComponent() {
         return page;
     };
 }
-
-const renderLoading = () =>
-    fromHTML(`
-        <div class="loading-container">
-            <div class="loading-page">
-                <div class="loader">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>`);
