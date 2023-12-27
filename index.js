@@ -9,42 +9,42 @@ import {
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderUserPageComponent } from "./components/user-page.js";
 
+const appEl = document.getElementById("app");
 let renderDelegate;
 
 export const goToPage = (page, data) => {
-    const appEl = document.getElementById("app");
     if (
         [POSTS_PAGE, AUTH_PAGE, ADD_POSTS_PAGE, USER_POSTS_PAGE].includes(page)
     ) {
         if (page === AUTH_PAGE) {
-            renderDelegate = () => renderAuthPageComponent({ appEl });
+            // renderDelegate = () => renderAuthPageComponent({ appEl });
         } else if (page === ADD_POSTS_PAGE) {
-            renderDelegate = () =>
-                renderAddPostPageComponent({
-                    appEl,
-                    onAddPostClick({ description, imageUrl }) {
-                        // TODO: реализовать добавление поста в API
-                        console.log("Добавляю пост...", {
-                            description,
-                            imageUrl,
-                        });
-                        goToPage(POSTS_PAGE);
-                    },
-                });
+            // renderDelegate = () =>
+            //     renderAddPostPageComponent({
+            //         appEl,
+            //         onAddPostClick({ description, imageUrl }) {
+            //             // TODO: реализовать добавление поста в API
+            //             console.log("Добавляю пост...", {
+            //                 description,
+            //                 imageUrl,
+            //             });
+            //             goToPage(POSTS_PAGE);
+            //         },
+            //     });
         } else if (page === POSTS_PAGE) {
-            renderDelegate = () =>
-                appEl.replaceChildren(renderPostsPageComponent());
+            renderDelegate = renderPostsPageComponent();
         } else if (page === USER_POSTS_PAGE) {
-            renderDelegate = () =>
-                appEl.replaceChildren(renderUserPageComponent(data));
+            renderDelegate = renderUserPageComponent(data);
         }
 
-        renderDelegate();
+        renderApp();
     } else {
         throw new Error("страницы не существует");
     }
 };
 
-export const renderApp = () => renderDelegate();
+export const renderApp = () => {
+    appEl.replaceChildren(renderDelegate());
+};
 
 goToPage(POSTS_PAGE);

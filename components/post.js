@@ -1,8 +1,9 @@
+import { dislikePost, likePost } from "../api.js";
 import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./render.js";
 
-export const renederPost = post => {
+export const renederPost = (post, onPostChanged) => {
     const likeImage = `./assets/images/${
         post.isLiked ? "like-active.svg" : "like-not-active.svg"
     }`;
@@ -36,6 +37,15 @@ export const renederPost = post => {
                 ${post.createdAt}
             </p>
         </li>`);
+
+    element.querySelector(".like-button").addEventListener("click", () => {
+        const action = post.isLiked ? dislikePost(post.id) : likePost(post.id);
+        action.then(p => {
+            if (onPostChanged) {
+                onPostChanged(p);
+            }
+        });
+    });
 
     element.querySelector(".post-header").addEventListener("click", () => {
         goToPage(USER_POSTS_PAGE, post.user);
