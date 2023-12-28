@@ -47,6 +47,26 @@ export function getUserPosts(id) {
     });
 }
 
+export function createPost(description, imageUrl) {
+    return fetch(postsHost, {
+        method: "POST",
+        headers: {
+            Authorization: getTokenHeader(),
+        },
+        body: JSON.stringify({description, imageUrl})
+    })
+        .then(response => {
+            if (response.status === 401) {
+                throw new Error("Нет авторизации");
+            }
+
+            return response.json();
+        })
+        .then(data => {
+            return data.post;
+        });
+}
+
 export function likePost(id) {
     return fetch(postsHost + `/${id}/like`, {
         method: "POST",
