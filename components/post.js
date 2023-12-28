@@ -1,4 +1,5 @@
 import { dislikePost, likePost } from "../api.js";
+import { user } from "../auth.js";
 import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./render.js";
@@ -38,7 +39,13 @@ export const renederPost = (post, onPostChanged) => {
             </p>
         </li>`);
 
+    
     element.querySelector(".like-button").addEventListener("click", () => {
+        if(!user){
+            alert('Войдите, чтобы лайкать');
+            return;
+        }
+        
         const action = post.isLiked ? dislikePost(post.id) : likePost(post.id);
         action.then(p => {
             if (onPostChanged) {
