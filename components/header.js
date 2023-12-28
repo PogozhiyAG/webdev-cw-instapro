@@ -1,6 +1,6 @@
 import { setUser, user } from "../auth.js";
-import { goToPage, renderApp } from "../index.js";
-import { ADD_POSTS_PAGE, AUTH_PAGE, LOGIN_PAGE, POSTS_PAGE } from "../routes.js";
+import { goToPage, refreshApp } from "../index.js";
+import { ADD_POSTS_PAGE, LOGIN_PAGE, POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./render.js";
 
 export const renderHeader = () => {
@@ -40,7 +40,7 @@ export const renderHeader = () => {
 
     element.querySelector(".logout-button")?.addEventListener("click", () => {
         setUser(null);
-        renderApp();
+        refreshApp();
     });
 
     return element;

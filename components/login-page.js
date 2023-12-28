@@ -1,7 +1,7 @@
 import { loginUser } from "../api.js";
 import { setUser } from "../auth.js";
 import { goToPage } from "../index.js";
-import { POSTS_PAGE } from "../routes.js";
+import { POSTS_PAGE, REGISTER_PAGE } from "../routes.js";
 import { renderPage } from "./page.js";
 import { fromHTML } from "./render.js";
 
@@ -24,7 +24,7 @@ export const renderLoginPage = () => {
                 <div class="form-footer">
                     <p class="form-footer-title">
                         Нет аккаунта?
-                        <button class="link-button" id="toggle-button">
+                        <button class="link-button toggle-button">
                             Зарегистрироваться.
                         </button>
                     </p>
@@ -33,7 +33,7 @@ export const renderLoginPage = () => {
 
         const page = renderPage(form);
 
-        const setError = message => form.querySelector(".form-error").textContent = message;
+        const setError = message => form.querySelector(".form-error").textContent = message;        
 
         form.querySelector(".login-button").addEventListener("click", () => {
             setError("");
@@ -63,6 +63,10 @@ export const renderLoginPage = () => {
                 console.error(error);
                 setError(error.message);
             });
+        });
+
+        form.querySelector('.toggle-button').addEventListener('click', () => {
+            goToPage(REGISTER_PAGE);
         });
 
         return page;

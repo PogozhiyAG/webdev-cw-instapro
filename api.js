@@ -16,30 +16,35 @@ export function getPosts() {
             Authorization: getTokenHeader(),
         },
     })
-        .then(response => {
-            if (response.status === 401) {
-                throw new Error("Нет авторизации");
-            }
+    .then(response => {
+        if (response.status === 401) {
+            throw new Error("Нет авторизации");
+        }
 
-            return response.json();
-        })
-        .then(data => {
-            return data.posts;
-        });
+        return response.json();
+    })
+    .then(data => {
+        return data.posts;
+    });
 }
 
 export function getUserPosts(id) {
-    return fetch(postsHost + `/user-posts/${id}`)
-        .then(response => {
-            if (response.status === 401) {
-                throw new Error("Нет авторизации");
-            }
+    return fetch(postsHost + `/user-posts/${id}`, {
+        method: "GET",
+        headers: {
+            Authorization: getTokenHeader(),
+        },
+    })
+    .then(response => {
+        if (response.status === 401) {
+            throw new Error("Нет авторизации");
+        }
 
-            return response.json();
-        })
-        .then(data => {
-            return data.posts;
-        });
+        return response.json();
+    })
+    .then(data => {
+        return data.posts;
+    });
 }
 
 export function likePost(id) {
