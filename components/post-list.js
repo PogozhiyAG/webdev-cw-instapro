@@ -10,11 +10,8 @@ const sortFunctions = {
 
 export const renderPostList = posts => {
     let sortOrder = sortFunctions.newest;
-    let dateFilter = null;
-
-   
-
-    const onLikeChaged = post => {
+    
+    const onPostChanged = post => {
         const index = posts.findIndex(p => p.id === post.id);
         if (index >= 0) {
             posts[index] = post;
@@ -44,7 +41,7 @@ export const renderPostList = posts => {
         element.querySelector('.posts').append(
             ...posts
             .sort(sortOrder)
-            .map(post => renederPost(post, onLikeChaged))
+            .map(post => renederPost(post, onPostChanged))
         );
 
         return element;
