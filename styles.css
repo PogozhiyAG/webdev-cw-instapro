@@ -196,3 +196,21 @@
   width: 100%;
   text-align: center;
 }
+
+
+.post-list__control-panel{
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  padding: 12px;
+}
+
+.sort-button{  
+  padding: 6px 12px!important;
+  border-radius: 6px;
+  color: #000!important;
+}
+
+.active-option{
+  background-color: #eee!important;
+}
