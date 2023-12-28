@@ -11,14 +11,6 @@ const sortFunctions = {
 export const renderPostList = posts => {
     let sortOrder = sortFunctions.newest;
     
-    const onPostChanged = post => {
-        const index = posts.findIndex(p => p.id === post.id);
-        if (index >= 0) {
-            posts[index] = post;
-            renderApp();
-        }
-    };
-
     return () => {
         const element = fromHTML(`
             <div>
@@ -37,6 +29,14 @@ export const renderPostList = posts => {
                 renderApp();
             });
         }
+
+        const onPostChanged = post => {
+            const index = posts.findIndex(p => p.id === post.id);
+            if (index >= 0) {
+                posts[index] = post;
+                renderApp();
+            }
+        };
 
         element.querySelector('.posts').append(
             ...posts
