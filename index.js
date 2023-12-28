@@ -13,13 +13,15 @@ import { renderRegisterPage } from "./components/register-page.js";
 import { user } from "./auth.js";
 
 const appEl = document.getElementById("app");
+
 let renderDelegate;
 let refreshDelegate;
+
 
 export const goToPage = (page, data) => {
     refreshDelegate = () => goToPage(page, data);
 
-    if(page === ADD_POSTS_PAGE && !user){
+    if(!user && [ADD_POSTS_PAGE].includes(page)){
         page = POSTS_PAGE;
     }
 
@@ -40,10 +42,10 @@ export const goToPage = (page, data) => {
     renderApp();
 };
 
-export const renderApp = () => {
-    appEl.replaceChildren(renderDelegate());
-};
+export const renderApp = () => appEl.replaceChildren(renderDelegate());
 
 export const refreshApp = () => refreshDelegate();
+
+
 
 goToPage(POSTS_PAGE);
