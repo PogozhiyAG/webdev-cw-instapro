@@ -46,6 +46,20 @@ export const renderApp = () => appEl.replaceChildren(renderDelegate());
 
 export const refreshApp = () => refreshDelegate();
 
-
+export const createState = (initialValue) => {
+    let value = initialValue;
+    
+    const result = {        
+        set(v){
+            value = v;
+            renderApp();
+        },
+        get(){
+            return value;
+        }
+    }
+    
+    return result;
+}
 
 goToPage(POSTS_PAGE);
