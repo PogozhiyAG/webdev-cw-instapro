@@ -1,5 +1,5 @@
 import { createPost } from "../../api.js";
-import { user } from "../../auth.js";
+import { userState } from "../../auth.js";
 import { goToPage } from "../../index.js";
 import { POSTS_PAGE } from "../../routes.js";
 import { renderPage } from "./page.js";
@@ -11,10 +11,10 @@ export const renderAddPostPageComponent = () => {
   let imageUrl = '';
 
   registerEffect(() => {      
-      if(!user.get()){
+      if(!userState.get()){
         goToPage(POSTS_PAGE);
       }
-  }, user);
+  }, userState);
 
 
   return () => {

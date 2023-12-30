@@ -10,7 +10,7 @@ import { renderPostsPageComponent } from "./components/pages/posts-page.js";
 import { renderUserPageComponent } from "./components/pages/user-page.js";
 import { renderLoginPage } from "./components/pages/login-page.js";
 import { renderRegisterPage } from "./components/pages/register-page.js";
-import { mountRootComponent, renderRoot, setRootElement } from "./core/render.js";
+import { mountRootComponent, setRootElement } from "./core/render.js";
 
 
 const navigationData = {};
@@ -28,8 +28,6 @@ export const goToPage = (page, data) => {
     }
 
     mountRootComponent(() => pageFunction(data));
-
-    renderRoot();
 };
 
 

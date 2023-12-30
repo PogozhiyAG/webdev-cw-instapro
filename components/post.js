@@ -1,13 +1,11 @@
 import { dislikePost, likePost } from "../api.js";
-import { user } from "../auth.js";
+import { userState } from "../auth.js";
 import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./utils.js";
 
 export const renederPost = ({post, onPostChanged, withHeader = true}) => {
-    const likeImage = `./assets/images/${
-        post.isLiked ? "like-active.svg" : "like-not-active.svg"
-    }`;
+    const likeImage = `./assets/images/${post.isLiked ? "like-active.svg" : "like-not-active.svg"}`;
 
     /**
      * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -38,17 +36,17 @@ export const renederPost = ({post, onPostChanged, withHeader = true}) => {
                 ${post.description}
             </p>
             <p class="post-date">
-                ${post.createdAt}
+                ${ post.createdAt}
             </p>
         </li>`);
 
     
     element.querySelector(".like-button").addEventListener("click", (event) => {
-        if(!user.get()){
+        if(!userState.get()){
             alert('Войдите, чтобы лайкать');
             return;
         }
-
+        
         event.target.classList.add('loading-like');
         
         const action = post.isLiked ? dislikePost(post.id) : likePost(post.id);

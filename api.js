@@ -1,13 +1,13 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
 
-import { user } from "./auth.js";
+import { userState } from "./auth.js";
 
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "prod";
 const baseHost = "https://webdev-hw-api.vercel.app";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
-const getTokenHeader = () => (user.get() ? `Bearer ${user.get().token}` : undefined);
+const getTokenHeader = () => (userState.get() ? `Bearer ${userState.get().token}` : undefined);
 
 export function getPosts() {
     return fetch(postsHost, {

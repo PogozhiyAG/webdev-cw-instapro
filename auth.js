@@ -8,12 +8,12 @@ const getUserFromLocalStorage = () => {
     }
 };
 
-export let user = createState(getUserFromLocalStorage());
+export let userState = createState(getUserFromLocalStorage());
 
 export const setUser = value => {
-    user.set(value);
+    userState.set(value);
     if (value) {
-        window.localStorage.user = JSON.stringify(user.get());
+        window.localStorage.user = JSON.stringify(userState.get());
     } else {
         delete window.localStorage.user;
     }    

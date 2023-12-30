@@ -2,7 +2,7 @@ import { renderPostList } from "../post-list.js";
 import { getPosts } from "../../api.js";
 import { renderPage } from "./page.js";
 import { renderLoading } from "../loading.js";
-import { user } from "../../auth.js";
+import { userState } from "../../auth.js";
 import { registerEffect } from "../../core/effect.js";
 import { createState } from "../../core/state.js";
 
@@ -11,20 +11,17 @@ export function renderPostsPageComponent() {
     let statePosts = createState([]);
     let _renderPostList = renderPostList({statePosts, withHeader: true});
 
-    const reloadData = (omitRender) => {
-        isLoading.set(true, omitRender);
+    const reloadData = () => {
+        isLoading.set(true);
         getPosts().then(data => {
-            isLoading.set(false, true);
+            isLoading.set(false);
             statePosts.set(data);
         });
     }
     
-    registerEffect(() => {
-        isLoading.set(false);
-        reloadData();
-    }, user);
+    registerEffect(reloadData, userState);
     
-    reloadData(true);
+    reloadData();
     
     return () => {
         const content = isLoading.get() ? renderLoading() : _renderPostList();

@@ -3,7 +3,7 @@ import { getUserPosts } from "../../api.js";
 import { renderPage } from "./page.js";
 import { renderLoading } from "../loading.js";
 import { fromHTML } from "../utils.js";
-import { user } from "../../auth.js";
+import { userState } from "../../auth.js";
 import { createState } from "../../core/state.js";
 import { registerEffect } from "../../core/effect.js";
 
@@ -12,20 +12,17 @@ export function renderUserPageComponent(userInfo) {
     let statePosts = createState([]);
     let _renderPostList = renderPostList({statePosts, withHeader: false});
 
-    const reloadData = (omitRender) => {
-        isLoading.set(true, omitRender);
+    const reloadData = () => {
+        isLoading.set(true);
         getUserPosts(userInfo.id).then(data => {
-            isLoading.set(false, true);
+            isLoading.set(false);
             statePosts.set(data);
         });
     }
     
-    registerEffect(() => {
-        isLoading.set(false);
-        reloadData();
-    }, user);
+    registerEffect(reloadData, userState);
 
-    reloadData(true);
+    reloadData();
 
     return () => {
         const banner = fromHTML(

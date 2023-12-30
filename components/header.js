@@ -1,4 +1,4 @@
-import { setUser, user } from "../auth.js";
+import { setUser, userState } from "../auth.js";
 import { goToPage } from "../index.js";
 import { ADD_POSTS_PAGE, LOGIN_PAGE, POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./utils.js";
@@ -10,14 +10,14 @@ export const renderHeader = () => {
                 <h1 class="logo">instapro</h1>
                 <button class="header-button add-or-login-button">
                 ${
-                    user.get()
+                    userState.get()
                         ? `<div title="Добавить пост" class="add-post-sign"></div>`
                         : "Войти"
                 }
                 </button>
                 ${
-                    user.get()
-                        ? `<button title="${user.get().name}" class="header-button logout-button">Выйти</button>`
+                    userState.get()
+                        ? `<button title="${userState.get().name}" class="header-button logout-button">Выйти</button>`
                         : ""
                 }  
             </div>
@@ -27,7 +27,7 @@ export const renderHeader = () => {
     element
         .querySelector(".add-or-login-button")
         .addEventListener("click", () => {
-            if (user.get()) {
+            if (userState.get()) {
                 goToPage(ADD_POSTS_PAGE);
             } else {
                 goToPage(LOGIN_PAGE);
