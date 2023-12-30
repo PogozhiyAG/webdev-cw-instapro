@@ -43,14 +43,17 @@ export const renederPost = ({post, onPostChanged, withHeader = true}) => {
         </li>`);
 
     
-    element.querySelector(".like-button").addEventListener("click", () => {
+    element.querySelector(".like-button").addEventListener("click", (event) => {
         if(!user.get()){
             alert('Войдите, чтобы лайкать');
             return;
         }
+
+        event.target.classList.add('loading-like');
         
         const action = post.isLiked ? dislikePost(post.id) : likePost(post.id);
         action.then(p => {
+            event.target.classList.remove('loading-like');
             if (onPostChanged) {
                 onPostChanged(p);
             }
