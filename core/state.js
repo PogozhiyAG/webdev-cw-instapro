@@ -5,10 +5,12 @@ export function createState (initialValue) {
     let value = initialValue;
     
     const result = {        
-        set(v){
+        set(v, omitRender){
             value = v;
             fireEffect(this);
-            renderRoot();
+            if(!omitRender){
+                renderRoot();
+            }            
         },
         get(){
             return value;

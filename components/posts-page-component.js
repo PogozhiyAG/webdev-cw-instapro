@@ -7,24 +7,27 @@ import { registerEffect } from "../core/effect.js";
 import { createState } from "../core/state.js";
 
 export function renderPostsPageComponent() {
-    let isLoading = true;
+    let isLoading = createState(true);
     let statePosts = createState([]);
     let _renderPostList = renderPostList(statePosts);
 
-    getPosts().then(data => {
-        isLoading = false;
-        statePosts.set(data);        
-    });
-
-    registerEffect(()=>{
-        console.log('user was changed');
-        getPosts().then(data => {           
-            statePosts.set(data);        
+    const reloadData = (omitRender) => {
+        isLoading.set(true, omitRender);
+        getPosts().then(data => {
+            isLoading.set(false, true);
+            statePosts.set(data);
         });
-    }, user)
-
+    }
+    
+    registerEffect(() => {
+        isLoading.set(false);
+        reloadData();
+    }, user);
+    
+    reloadData(true);
+    
     return () => {
-        const content = isLoading ? renderLoading() : _renderPostList();
+        const content = isLoading.get() ? renderLoading() : _renderPostList();
         const page = renderPage(content);
         return page;
     };
