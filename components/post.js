@@ -41,7 +41,7 @@ export const renederPost = (post, onPostChanged) => {
 
     
     element.querySelector(".like-button").addEventListener("click", () => {
-        if(!user){
+        if(!user.get()){
             alert('Войдите, чтобы лайкать');
             return;
         }
