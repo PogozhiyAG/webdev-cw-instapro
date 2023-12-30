@@ -1,11 +1,11 @@
-import { createPost } from "../api.js";
-import { user } from "../auth.js";
-import { goToPage } from "../index.js";
-import { POSTS_PAGE } from "../routes.js";
+import { createPost } from "../../api.js";
+import { user } from "../../auth.js";
+import { goToPage } from "../../index.js";
+import { POSTS_PAGE } from "../../routes.js";
 import { renderPage } from "./page.js";
-import { fromHTML } from "./utils.js";
-import { renderUploadImageComponent } from "./upload-image-component.js";
-import { registerEffect } from "../core/effect.js";
+import { fromHTML } from "../utils.js";
+import { renderUploadImageComponent } from "../upload-image-component.js";
+import { registerEffect } from "../../core/effect.js";
 
 export const renderAddPostPageComponent = () => {
   let imageUrl = '';

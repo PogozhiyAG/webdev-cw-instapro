@@ -1,10 +1,10 @@
-import { renderPostList } from "./post-list.js";
-import { getPosts } from "../api.js";
+import { renderPostList } from "../post-list.js";
+import { getPosts } from "../../api.js";
 import { renderPage } from "./page.js";
-import { renderLoading } from "./render-loading.js";
-import { user } from "../auth.js";
-import { registerEffect } from "../core/effect.js";
-import { createState } from "../core/state.js";
+import { renderLoading } from "../render-loading.js";
+import { user } from "../../auth.js";
+import { registerEffect } from "../../core/effect.js";
+import { createState } from "../../core/state.js";
 
 export function renderPostsPageComponent() {
     let isLoading = createState(true);

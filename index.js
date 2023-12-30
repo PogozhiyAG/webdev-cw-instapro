@@ -5,11 +5,11 @@ import {
     REGISTER_PAGE,
     USER_POSTS_PAGE,
 } from "./routes.js";
-import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
-import { renderPostsPageComponent } from "./components/posts-page-component.js";
-import { renderUserPageComponent } from "./components/user-page.js";
-import { renderLoginPage } from "./components/login-page.js";
-import { renderRegisterPage } from "./components/register-page.js";
+import { renderAddPostPageComponent } from "./components/pages/add-post-page-component.js";
+import { renderPostsPageComponent } from "./components/pages/posts-page-component.js";
+import { renderUserPageComponent } from "./components/pages/user-page.js";
+import { renderLoginPage } from "./components/pages/login-page.js";
+import { renderRegisterPage } from "./components/pages/register-page.js";
 import { mountRootComponent, renderRoot, setRootElement } from "./core/render.js";
 
 
