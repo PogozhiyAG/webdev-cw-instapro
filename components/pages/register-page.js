@@ -54,21 +54,21 @@ export const renderRegisterPage = () => {
             const name = form.querySelector('.name-input').value;
             const password = form.querySelector('.password-input').value;
             if (!name) {
-                alert("Введите имя");
+                setError("Введите имя");
                 return;
             }
             if (!login) {
-                alert("Введите логин");
+                setError("Введите логин");
                 return;
             }
 
             if (!password) {
-                alert("Введите пароль");
+                setError("Введите пароль");
                 return;
             }
 
             if (!imageUrl) {
-                alert("Не выбрана фотография");
+                setError("Не выбрана фотография");
                 return;
             }
 
@@ -81,8 +81,7 @@ export const renderRegisterPage = () => {
             .then(user => {
                 setUser(user.user);
             })
-            .catch(error => {
-                console.error(error);
+            .catch(error => {                
                 setError(error.message);
             });
 

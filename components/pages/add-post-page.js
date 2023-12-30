@@ -8,7 +8,7 @@ import { renderUploadImageComponent } from "../upload-image.js";
 import { registerEffect } from "../../core/effect.js";
 
 export const renderAddPostPageComponent = () => {
-  let imageUrl = '';
+  let imageUrl;
 
   registerEffect(() => {      
       if(!userState.get()){
@@ -43,9 +43,19 @@ export const renderAddPostPageComponent = () => {
     const setError = message => form.querySelector(".form-error").textContent = message;
 
     form.querySelector(".add-button").addEventListener('click', () => {
-      setError('');
+      setError('');     
 
       const description = form.querySelector(".description-input").value;
+
+      if(!imageUrl){
+        setError('Не загружена фотография');
+        return;
+      }
+
+      if(!description){
+        setError('Не введено описание');
+        return;
+      }
       
       createPost(description, imageUrl)
       .then(() => goToPage(POSTS_PAGE))

@@ -42,12 +42,12 @@ export const renderLoginPage = () => {
             const password = form.querySelector(".password-input").value;
 
             if (!login) {
-                alert("Введите логин");
+                setError("Введите логин");
                 return;
             }
 
             if (!password) {
-                alert("Введите пароль");
+                setError("Введите пароль");
                 return;
             }
 
