@@ -3,14 +3,11 @@ import { userState } from "../auth.js";
 import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./utils.js";
+import { formatDistanceToNow } from 'date-fns'
 
 export const renederPost = ({post, onPostChanged, withHeader = true}) => {
     const likeImage = `./assets/images/${post.isLiked ? "like-active.svg" : "like-not-active.svg"}`;
 
-    /**
-     * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-     * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-     */
     const element = fromHTML(`
         <li class="post">
             ${withHeader 
@@ -36,7 +33,7 @@ export const renederPost = ({post, onPostChanged, withHeader = true}) => {
                 ${post.description}
             </p>
             <p class="post-date">
-                ${ post.createdAt}
+                ${ formatDistanceToNow(post.createdAt)}
             </p>
         </li>`);
 
