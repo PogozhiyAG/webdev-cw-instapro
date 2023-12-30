@@ -9,7 +9,7 @@ import { createState } from "../../core/state.js";
 export function renderPostsPageComponent() {
     let isLoading = createState(true);
     let statePosts = createState([]);
-    let _renderPostList = renderPostList(statePosts);
+    let _renderPostList = renderPostList({statePosts, withHeader: true});
 
     const reloadData = (omitRender) => {
         isLoading.set(true, omitRender);

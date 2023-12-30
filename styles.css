@@ -214,3 +214,22 @@
 .active-option{
   background-color: #eee!important;
 }
+
+
+.user-page-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-page__user-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 120px;
+  margin-right: 10px;
+}
+
+.user-page__user-name{
+  font-size: 4em;
+}

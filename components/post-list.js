@@ -5,7 +5,7 @@ import { fromHTML } from "./utils.js";
 
 
 
-export const renderPostList = statePosts => {
+export const renderPostList = ({statePosts, withHeader}) => {
     let stateSortOrder = createState(sortFunctions.newest);
     let controlPannel = renderPostListControlPanel(stateSortOrder);
     
@@ -30,7 +30,7 @@ export const renderPostList = statePosts => {
         postList.append(
             ...statePosts.get()
             .sort(stateSortOrder.get())
-            .map(post => renederPost(post, onPostChanged))
+            .map(post => renederPost({post, onPostChanged, withHeader}))
         );
 
         return element;

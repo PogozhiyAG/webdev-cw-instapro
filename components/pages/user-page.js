@@ -10,7 +10,7 @@ import { registerEffect } from "../../core/effect.js";
 export function renderUserPageComponent(userInfo) {
     let isLoading = createState(true);
     let statePosts = createState([]);
-    let _renderPostList = renderPostList(statePosts);
+    let _renderPostList = renderPostList({statePosts, withHeader: false});
 
     const reloadData = (omitRender) => {
         isLoading.set(true, omitRender);
@@ -29,7 +29,10 @@ export function renderUserPageComponent(userInfo) {
 
     return () => {
         const banner = fromHTML(
-            `<h1>Страница пользователя: ${userInfo.name}</h1>`
+            `<div class="user-page-header">
+                <img src="${userInfo.imageUrl}" class="user-page__user-image">
+                <p class="user-page__user-name">${userInfo.name}</p>
+            </div>`
         );
         const content = isLoading.get() ? renderLoading() : _renderPostList();
         const page = renderPage(banner, content);

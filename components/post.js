@@ -4,7 +4,7 @@ import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
 import { fromHTML } from "./utils.js";
 
-export const renederPost = (post, onPostChanged) => {
+export const renederPost = ({post, onPostChanged, withHeader = true}) => {
     const likeImage = `./assets/images/${
         post.isLiked ? "like-active.svg" : "like-not-active.svg"
     }`;
@@ -15,10 +15,13 @@ export const renederPost = (post, onPostChanged) => {
      */
     const element = fromHTML(`
         <li class="post">
-            <div class="post-header" data-user-id="${post.user.id}">
-                <img src="${post.user.imageUrl}" class="post-header__user-image">
-                <p class="post-header__user-name">${post.user.name}</p>
-            </div>
+            ${withHeader 
+                ? `<div class="post-header">
+                        <img src="${post.user.imageUrl}" class="post-header__user-image">
+                        <p class="post-header__user-name">${post.user.name}</p>
+                    </div>`
+                : ``
+            }            
             <div class="post-image-container">
                 <img class="post-image" src="${post.imageUrl}">
             </div>
@@ -54,7 +57,7 @@ export const renederPost = (post, onPostChanged) => {
         });
     });
 
-    element.querySelector(".post-header").addEventListener("click", () => {
+    element.querySelector(".post-header")?.addEventListener("click", () => {
         goToPage(USER_POSTS_PAGE, post.user);
     });
 
