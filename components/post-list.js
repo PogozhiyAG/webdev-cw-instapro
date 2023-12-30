@@ -1,7 +1,7 @@
-import { createState } from "../index.js";
+import { createState } from "../core/state.js";
 import { renderPostListControlPanel, sortFunctions } from "./post-list-control-panel.js";
 import { renederPost } from "./post.js";
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 
 
 

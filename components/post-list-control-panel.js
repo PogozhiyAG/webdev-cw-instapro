@@ -1,4 +1,4 @@
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 
 export const sortFunctions = {
     newest: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),

@@ -1,3 +1,5 @@
+import { createState } from "./core/state.js";
+
 const getUserFromLocalStorage = () => {
     try {
         return JSON.parse(window.localStorage.user);
@@ -6,13 +8,13 @@ const getUserFromLocalStorage = () => {
     }
 };
 
-export let user = getUserFromLocalStorage();
+export let user = createState(getUserFromLocalStorage());
 
 export const setUser = value => {
-    user = value;
+    user.set(value);
     if (value) {
-        window.localStorage.user = JSON.stringify(user);
+        window.localStorage.user = JSON.stringify(user.get());
     } else {
         delete window.localStorage.user;
-    }
+    }    
 };

@@ -3,7 +3,7 @@ import { setUser } from "../auth.js";
 import { goToPage } from "../index.js";
 import { LOGIN_PAGE } from "../routes.js";
 import { renderPage } from "./page.js";
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
 export const renderRegisterPage = () => {

@@ -1,4 +1,4 @@
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 
 export const renderLoading = () =>
     fromHTML(`

@@ -10,56 +10,28 @@ import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderUserPageComponent } from "./components/user-page.js";
 import { renderLoginPage } from "./components/login-page.js";
 import { renderRegisterPage } from "./components/register-page.js";
-import { user } from "./auth.js";
+import { mountRootComponent, renderRoot, setRootElement } from "./core/render.js";
 
-const appEl = document.getElementById("app");
 
-let renderDelegate;
-let refreshDelegate;
+const navigationData = {};
+navigationData[LOGIN_PAGE]      = renderLoginPage;
+navigationData[REGISTER_PAGE]   = renderRegisterPage;
+navigationData[POSTS_PAGE]      = renderPostsPageComponent;
+navigationData[USER_POSTS_PAGE] = renderUserPageComponent;
+navigationData[ADD_POSTS_PAGE]  = renderAddPostPageComponent;
 
 
 export const goToPage = (page, data) => {
-    refreshDelegate = () => goToPage(page, data);
-
-    if(!user && [ADD_POSTS_PAGE].includes(page)){
-        page = POSTS_PAGE;
-    }
-
-    if (page === LOGIN_PAGE) {
-        renderDelegate = renderLoginPage();
-    } else if (page === REGISTER_PAGE) {
-        renderDelegate = renderRegisterPage();
-    } else if (page === ADD_POSTS_PAGE) {
-        renderDelegate = renderAddPostPageComponent();        
-    } else if (page === POSTS_PAGE) {
-        renderDelegate = renderPostsPageComponent();
-    } else if (page === USER_POSTS_PAGE) {
-        renderDelegate = renderUserPageComponent(data);
-    } else{
+    const pageFunction = navigationData[page];
+    if(!pageFunction){
         throw new Error("страницы не существует");    
     }
 
-    renderApp();
+    mountRootComponent(() => pageFunction(data));
+
+    renderRoot();
 };
 
-export const renderApp = () => appEl.replaceChildren(renderDelegate());
 
-export const refreshApp = () => refreshDelegate();
-
-export const createState = (initialValue) => {
-    let value = initialValue;
-    
-    const result = {        
-        set(v){
-            value = v;
-            renderApp();
-        },
-        get(){
-            return value;
-        }
-    }
-    
-    return result;
-}
-
+setRootElement(document.getElementById("app"));
 goToPage(POSTS_PAGE);

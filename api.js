@@ -7,7 +7,7 @@ const personalKey = "prod";
 const baseHost = "https://webdev-hw-api.vercel.app";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
-const getTokenHeader = () => (user ? `Bearer ${user.token}` : undefined);
+const getTokenHeader = () => (user.get() ? `Bearer ${user.get().token}` : undefined);
 
 export function getPosts() {
     return fetch(postsHost, {

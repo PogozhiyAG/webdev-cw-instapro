@@ -2,7 +2,7 @@ import { dislikePost, likePost } from "../api.js";
 import { user } from "../auth.js";
 import { goToPage } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 
 export const renederPost = (post, onPostChanged) => {
     const likeImage = `./assets/images/${

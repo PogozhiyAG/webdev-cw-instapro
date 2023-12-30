@@ -1,5 +1,5 @@
 import { renderHeader } from "./header.js";
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
 
 export const renderPage = (...children) => {
     const element = fromHTML(`

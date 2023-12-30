@@ -1,9 +1,11 @@
 import { renderPostList } from "./post-list.js";
 import { getUserPosts } from "../api.js";
 import { renderPage } from "./page.js";
-import { createState } from "../index.js";
 import { renderLoading } from "./render-loading.js";
-import { fromHTML } from "./render.js";
+import { fromHTML } from "./utils.js";
+import { user } from "../auth.js";
+import { createState } from "../core/state.js";
+import { registerEffect } from "../core/effect.js";
 
 export function renderUserPageComponent(userInfo) {
     let isLoading = true;
@@ -14,6 +16,12 @@ export function renderUserPageComponent(userInfo) {
         isLoading = false;
         statePosts.set(data);      
     });
+
+    registerEffect(() => {        
+        getUserPosts(userInfo.id).then(data => {           
+            statePosts.set(data);        
+        });
+    }, user)
 
     return () => {
         const banner = fromHTML(
