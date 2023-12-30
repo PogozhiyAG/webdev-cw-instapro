@@ -5,8 +5,8 @@ import {
     REGISTER_PAGE,
     USER_POSTS_PAGE,
 } from "./routes.js";
-import { renderAddPostPageComponent } from "./components/pages/add-post-page-component.js";
-import { renderPostsPageComponent } from "./components/pages/posts-page-component.js";
+import { renderAddPostPageComponent } from "./components/pages/add-post-page.js";
+import { renderPostsPageComponent } from "./components/pages/posts-page.js";
 import { renderUserPageComponent } from "./components/pages/user-page.js";
 import { renderLoginPage } from "./components/pages/login-page.js";
 import { renderRegisterPage } from "./components/pages/register-page.js";

@@ -1,7 +1,7 @@
 import { renderPostList } from "../post-list.js";
 import { getUserPosts } from "../../api.js";
 import { renderPage } from "./page.js";
-import { renderLoading } from "../render-loading.js";
+import { renderLoading } from "../loading.js";
 import { fromHTML } from "../utils.js";
 import { user } from "../../auth.js";
 import { createState } from "../../core/state.js";
