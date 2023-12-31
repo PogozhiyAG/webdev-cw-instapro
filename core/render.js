@@ -7,7 +7,7 @@ let rootRenderFunction;
 export const mountRootComponent = rootComponentFunction => {
     clearEffects();
     rootRenderFunction = rootComponentFunction();
-    renderRoot();
+    scheduleRenderRoot();
 }
 
 const renderRoot = () => {     
