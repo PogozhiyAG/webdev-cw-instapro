@@ -6,6 +6,7 @@ export const setRootElement = element => rootElement = element;
 let rootRenderFunction;
 export const mountRootComponent = rootComponentFunction => {
     clearEffects();
+    rootRenderFunction = null;
     rootRenderFunction = rootComponentFunction();
     scheduleRenderRoot();
 }
